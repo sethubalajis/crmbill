@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Quotations\RelationManagers;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -18,10 +18,10 @@ class QuotationitemsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'item_id';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Select::make('item_id')
                     ->relationship('item', 'name')
                     ->required()

@@ -12,6 +12,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Table;
 
 class AddressesRelationManager extends RelationManager
@@ -50,9 +51,8 @@ class AddressesRelationManager extends RelationManager
                 TextColumn::make('city'),
                 TextColumn::make('state'),
                 TextColumn::make('pincode'),
-                TextColumn::make('is_default')
-                    ->label('Default')
-                    ->boolean(),
+                BooleanColumn::make('is_default')
+                    ->label('Default'),
             ])
             ->headerActions([
                 CreateAction::make(),

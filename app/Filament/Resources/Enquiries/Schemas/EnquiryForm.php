@@ -13,7 +13,8 @@ class EnquiryForm
     {
         return $schema
             ->components([
-                DatePicker::make('date'),
+                DatePicker::make('date')
+                    ->default(today()),
                 TextInput::make('company')
                     ->default(null),
                 TextInput::make('name')
@@ -24,7 +25,8 @@ class EnquiryForm
                 TextInput::make('description')
                     ->default(null),
                 DatePicker::make('callbackdate'),
-                TimePicker::make('callbacktime'),
+                TimePicker::make('callbacktime')
+                    ->seconds(false),
             ]);
     }
 }

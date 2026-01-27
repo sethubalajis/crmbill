@@ -11,6 +11,19 @@ class Quotation extends Model
 {
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($quotation) {
+            if (empty($quotation->quotationno)) {
+                $lastQuotation = static::withTrashed()->orderBy('id', 'desc')->first();
+                $nextId = $lastQuotation ? $lastQuotation->id + 1 : 1;
+                $quotation->quotationno = 'QUO' . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+            }
+        });
+    }
+
     protected $fillable = [
         'quotationno',
         'date',

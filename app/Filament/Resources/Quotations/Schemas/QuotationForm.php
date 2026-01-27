@@ -15,19 +15,35 @@ class QuotationForm
         return $schema
             ->components([
                 TextInput::make('quotationno')
-                    ->default(null),
-                DatePicker::make('date'),
+                    ->label('Quotation No')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->placeholder('Auto-generated'),
+                DatePicker::make('date')
+                    ->default(today()),
                 Select::make('customer_id')
-                    ->relationship('customer', 'id')
-                    ->default(null),
+                    ->relationship('customer', 'company_name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->company_name} | {$record->contact_person} | {$record->phone1}")
+                    ->searchable()
+                    ->required(),
+                Toggle::make('intrastate')
+                    ->label('Intra State')
+                    ->inline(),
                 TextInput::make('total')
+                    ->disabled()
+                    ->dehydrated(false)
                     ->numeric()
                     ->default(null),
                 TextInput::make('gstcentral')
+                    ->label('GST Central')
+                    ->disabled()
+                    ->dehydrated(false)
                     ->numeric()
                     ->default(null),
-                Toggle::make('intrastate'),
                 TextInput::make('gststate')
+                    ->label('GST State')
+                    ->disabled()
+                    ->dehydrated(false)
                     ->numeric()
                     ->default(null),
             ]);

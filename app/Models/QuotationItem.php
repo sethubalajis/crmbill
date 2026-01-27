@@ -16,12 +16,14 @@ class QuotationItem extends Model
         'gst_id',
         'item_rate',
         'item_gst',
+        'total',
         'quotation_id',
     ];
 
     protected $casts = [
         'item_rate' => 'decimal:2',
         'item_gst' => 'decimal:2',
+        'total' => 'decimal:2',
     ];
 
     public function quotation(): BelongsTo

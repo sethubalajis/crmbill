@@ -2,7 +2,11 @@
 
 namespace App\Filament\Resources\Customers\Schemas;
 
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class CustomerForm
@@ -31,6 +35,31 @@ class CustomerForm
                     ->default(null),
                 TextInput::make('pan_number')
                     ->default(null),
+                Repeater::make('addresses')
+                    ->relationship('addresses')
+                    ->label('Addresses')
+                    ->schema([
+                        Select::make('address_type')
+                            ->options([
+                                'Billing' => 'Billing',
+                                'Shipping' => 'Shipping',
+                            ])
+                            ->required(),
+                        Textarea::make('street_address')
+                            ->required()
+                            ->rows(2),
+                        TextInput::make('city')
+                            ->default(null),
+                        TextInput::make('state')
+                            ->default(null),
+                        TextInput::make('pincode')
+                            ->default(null),
+                        Toggle::make('is_default')
+                            ->label('Default')
+                            ->default(false),
+                    ])
+                    ->collapsed()
+                    ->columnSpanFull(),
             ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Quotations;
 use App\Filament\Resources\Quotations\Pages\CreateQuotation;
 use App\Filament\Resources\Quotations\Pages\EditQuotation;
 use App\Filament\Resources\Quotations\Pages\ListQuotations;
+use App\Filament\Resources\Quotations\RelationManagers\QuotationitemsRelationManager;
 use App\Filament\Resources\Quotations\Schemas\QuotationForm;
 use App\Filament\Resources\Quotations\Tables\QuotationsTable;
 use App\Models\Quotation;
@@ -35,7 +36,7 @@ class QuotationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            QuotationitemsRelationManager::class,
         ];
     }
 

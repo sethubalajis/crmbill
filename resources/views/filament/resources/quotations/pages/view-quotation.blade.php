@@ -250,6 +250,24 @@
             </div>
             <div class="company-info">
                 <h1>{{ $company?->name ?? 'Company Name' }}</h1>
+                @if($company?->address)
+                    <p>{{ $company->address }}</p>
+                @endif
+                @if($company?->city)
+                    <p>{{ $company->city->name }}@if($company->postalcode), {{ $company->postalcode }}@endif</p>
+                @endif
+                @if($company?->state || $company?->country)
+                    <p>{{ $company->state?->name }}@if($company->state && $company->country), @endif{{ $company->country?->name }}</p>
+                @endif
+                @if($company?->phone)
+                    <p>Phone: {{ $company->phone }}@if($company->phone2), {{ $company->phone2 }}@endif</p>
+                @endif
+                @if($company?->email)
+                    <p>Email: {{ $company->email }}</p>
+                @endif
+                @if($company?->gstinno)
+                    <p>GSTIN: {{ $company->gstinno }}</p>
+                @endif
             </div>
         </div>
 

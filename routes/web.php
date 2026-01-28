@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 Route::get('/quotations/{quotation}/view', function (Quotation $quotation) {
     $quotation->load('quotationitems.item', 'quotationitems.gst', 'customer');
-    $company = Company::first();
+    $company = Company::with(['country', 'state', 'city'])->first();
     return view('filament.resources.quotations.pages.view-quotation', [
         'quotation' => $quotation,
         'company' => $company

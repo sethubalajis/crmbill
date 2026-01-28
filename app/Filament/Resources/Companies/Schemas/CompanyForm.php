@@ -52,7 +52,9 @@ class CompanyForm
                     ->default(null),
                 FileUpload::make('logo')
                     ->image()
+                    ->disk('public')
                     ->directory('companies')
+                    ->visibility('public')
                     ->default(null),
             ]);
     }

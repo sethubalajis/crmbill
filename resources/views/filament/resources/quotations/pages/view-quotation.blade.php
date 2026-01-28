@@ -28,28 +28,54 @@
 
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
+            align-items: flex-start;
             margin-bottom: 40px;
             border-bottom: 2px solid #333;
             padding-bottom: 20px;
+            gap: 30px;
+        }
+
+        .logo-section {
+            flex-shrink: 0;
+        }
+
+        .logo-section img {
+            max-width: 120px;
+            max-height: 120px;
+            object-fit: contain;
+        }
+
+        .company-info {
+            flex-grow: 1;
         }
 
         .company-info h1 {
             font-size: 24px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .company-info p {
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .quotation-header {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quotation-header h2 {
+            font-size: 32px;
+            color: #2c3e50;
             margin-bottom: 5px;
         }
 
-        .quotation-title {
-            text-align: right;
-        }
-
-        .quotation-title h2 {
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .quotation-title p {
+        .quotation-header p {
             font-size: 14px;
             color: #7f8c8d;
         }
@@ -196,13 +222,38 @@
 <body>
     <div class="container">
         <div class="header">
+            <div class="logo-section">
+                @if($quotation->company?->logo)
+                    <img src="{{ asset('storage/' . $quotation->company->logo) }}" alt="Company Logo">
+                @else
+                    <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                        <span style="color: #95a5a6; font-size: 12px;">No Logo</span>
+                    </div>
+                @endif
+            </div>
             <div class="company-info">
-                <h1>Quotation</h1>
+                <h1>{{ $quotation->company?->name ?? 'Company Name' }}</h1>
+                @if($quotation->company?->address)
+                    <p>{{ $quotation->company->address }}</p>
+                @endif
+                @if($quotation->company?->city)
+                    <p>{{ $quotation->company->city->name }}, {{ $quotation->company->state?->name }}, {{ $quotation->company->country?->name }}</p>
+                @endif
+                @if($quotation->company?->phone)
+                    <p>Phone: {{ $quotation->company->phone }}</p>
+                @endif
+                @if($quotation->company?->email)
+                    <p>Email: {{ $quotation->company->email }}</p>
+                @endif
+                @if($quotation->company?->gstinno)
+                    <p>GSTIN: {{ $quotation->company->gstinno }}</p>
+                @endif
             </div>
-            <div class="quotation-title">
-                <h2>{{ $quotation->quotationno }}</h2>
-                <p>Date: {{ $quotation->date->format('M d, Y') }}</p>
-            </div>
+        </div>
+
+        <div class="quotation-header">
+            <h2>{{ $quotation->quotationno }}</h2>
+            <p>Date: {{ $quotation->date->format('M d, Y') }}</p>
         </div>
 
         <div class="details">

@@ -28,9 +28,6 @@ class QuotationsTable
                 TextColumn::make('total')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('gstcentral')
-                    ->numeric()
-                    ->sortable(),
                 IconColumn::make('intrastate')
                     ->boolean(),
                 TextColumn::make('gststate')

@@ -40,13 +40,6 @@ class QuotationForm
 
  
 
-                TextInput::make('gstcentral')
-                    ->label('GST Central')
-                    ->disabled()
-                    ->dehydrated(false)
-                    ->numeric()
-                    ->default(null)
-                    ->id('gstcentral'),
                 TextInput::make('gststate')
                     ->label('GST State')
                     ->disabled()

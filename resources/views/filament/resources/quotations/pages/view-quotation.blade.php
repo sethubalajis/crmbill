@@ -223,8 +223,8 @@
     <div class="container">
         <div class="header">
             <div class="logo-section">
-                @if($quotation->company?->logo)
-                    <img src="{{ asset('storage/' . $quotation->company->logo) }}" alt="Company Logo">
+                @if($company?->logo)
+                    <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
                 @else
                     <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
                         <span style="color: #95a5a6; font-size: 12px;">No Logo</span>
@@ -232,21 +232,21 @@
                 @endif
             </div>
             <div class="company-info">
-                <h1>{{ $quotation->company?->name ?? 'Company Name' }}</h1>
-                @if($quotation->company?->address)
-                    <p>{{ $quotation->company->address }}</p>
+                <h1>{{ $company?->name ?? 'Company Name' }}</h1>
+                @if($company?->address)
+                    <p>{{ $company->address }}</p>
                 @endif
-                @if($quotation->company?->city)
-                    <p>{{ $quotation->company->city->name }}, {{ $quotation->company->state?->name }}, {{ $quotation->company->country?->name }}</p>
+                @if($company?->city)
+                    <p>{{ $company->city->name }}, {{ $company->state?->name }}, {{ $company->country?->name }}</p>
                 @endif
-                @if($quotation->company?->phone)
-                    <p>Phone: {{ $quotation->company->phone }}</p>
+                @if($company?->phone)
+                    <p>Phone: {{ $company->phone }}</p>
                 @endif
-                @if($quotation->company?->email)
-                    <p>Email: {{ $quotation->company->email }}</p>
+                @if($company?->email)
+                    <p>Email: {{ $company->email }}</p>
                 @endif
-                @if($quotation->company?->gstinno)
-                    <p>GSTIN: {{ $quotation->company->gstinno }}</p>
+                @if($company?->gstinno)
+                    <p>GSTIN: {{ $company->gstinno }}</p>
                 @endif
             </div>
         </div>

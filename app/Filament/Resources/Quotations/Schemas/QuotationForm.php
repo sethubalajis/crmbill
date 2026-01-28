@@ -41,7 +41,7 @@ class QuotationForm
  
 
                 TextInput::make('gststate')
-                    ->label('GST State')
+                    ->label('GST')
                     ->disabled()
                     ->dehydrated(false)
                     ->numeric()

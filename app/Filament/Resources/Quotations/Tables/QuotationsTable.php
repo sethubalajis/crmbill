@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Quotations\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -51,6 +52,11 @@ class QuotationsTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                Action::make('view')
+                    ->label('View')
+                    ->icon('heroicon-m-eye')
+                    ->url(fn ($record) => route('quotations.view', $record->id))
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([

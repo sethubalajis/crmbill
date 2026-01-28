@@ -26,6 +26,19 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
         .header {
             display: flex;
             justify-content: flex-start;
@@ -221,6 +234,10 @@
 </head>
 <body>
     <div class="container">
+        <div class="page-title">
+            <h1>QUOTATION</h1>
+        </div>
+
         <div class="header">
             <div class="logo-section">
                 @if($company?->logo)

@@ -24,6 +24,7 @@ class ItemsTable
                 TextColumn::make('description')
                     ->searchable(),
                 TextColumn::make('rate')
+                    ->label('Item Rate')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('hsn')

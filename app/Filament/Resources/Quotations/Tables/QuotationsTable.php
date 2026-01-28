@@ -31,6 +31,7 @@ class QuotationsTable
                 IconColumn::make('intrastate')
                     ->boolean(),
                 TextColumn::make('gststate')
+                    ->label('GST')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

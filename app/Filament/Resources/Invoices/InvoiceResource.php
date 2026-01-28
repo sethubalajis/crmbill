@@ -21,7 +21,11 @@ class InvoiceResource extends Resource
 {
     protected static ?string $model = Invoice::class;
 
-        protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentCurrencyDollar;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentCurrencyDollar;
+
+    public static function form(Schema $schema): Schema
+    {
+        return InvoiceForm::configure($schema);
     }
 
     public static function table(Table $table): Table

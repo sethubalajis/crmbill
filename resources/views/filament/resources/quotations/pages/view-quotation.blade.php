@@ -41,12 +41,19 @@
 
         .header {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 40px;
             border-bottom: 2px solid #333;
             padding-bottom: 20px;
             gap: 30px;
+        }
+
+        .company-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            flex: 1;
         }
 
         .logo-section {
@@ -74,6 +81,23 @@
             margin-bottom: 5px;
             color: #555;
             line-height: 1.6;
+        }
+
+        .quotation-info {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .quotation-info h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .quotation-info p {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
         }
 
         .quotation-header {
@@ -239,35 +263,41 @@
         </div>
 
         <div class="header">
-            <div class="logo-section">
-                @if($company?->logo)
-                    <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
-                @else
-                    <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                        <span style="color: #95a5a6; font-size: 12px;">No Logo</span>
-                    </div>
-                @endif
+            <div class="company-section">
+                <div class="logo-section">
+                    @if($company?->logo)
+                        <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
+                    @else
+                        <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                            <span style="color: #95a5a6; font-size: 12px;">No Logo</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="company-info">
+                    <h1>{{ $company?->name ?? 'Company Name' }}</h1>
+                    @if($company?->address)
+                        <p>{{ $company->address }}</p>
+                    @endif
+                    @if($company?->city)
+                        <p>{{ $company->city->name }}@if($company->postalcode), {{ $company->postalcode }}@endif</p>
+                    @endif
+                    @if($company?->state || $company?->country)
+                        <p>{{ $company->state?->name }}@if($company->state && $company->country), @endif{{ $company->country?->name }}</p>
+                    @endif
+                    @if($company?->phone)
+                        <p>Phone: {{ $company->phone }}@if($company->phone2), {{ $company->phone2 }}@endif</p>
+                    @endif
+                    @if($company?->email)
+                        <p>Email: {{ $company->email }}</p>
+                    @endif
+                    @if($company?->gstinno)
+                        <p>GSTIN: {{ $company->gstinno }}</p>
+                    @endif
+                </div>
             </div>
-            <div class="company-info">
-                <h1>{{ $company?->name ?? 'Company Name' }}</h1>
-                @if($company?->address)
-                    <p>{{ $company->address }}</p>
-                @endif
-                @if($company?->city)
-                    <p>{{ $company->city->name }}@if($company->postalcode), {{ $company->postalcode }}@endif</p>
-                @endif
-                @if($company?->state || $company?->country)
-                    <p>{{ $company->state?->name }}@if($company->state && $company->country), @endif{{ $company->country?->name }}</p>
-                @endif
-                @if($company?->phone)
-                    <p>Phone: {{ $company->phone }}@if($company->phone2), {{ $company->phone2 }}@endif</p>
-                @endif
-                @if($company?->email)
-                    <p>Email: {{ $company->email }}</p>
-                @endif
-                @if($company?->gstinno)
-                    <p>GSTIN: {{ $company->gstinno }}</p>
-                @endif
+            <div class="quotation-info">
+                <h2>{{ $quotation->quotationno }}</h2>
+                <p><strong>Date:</strong> {{ $quotation->date->format('M d, Y') }}</p>
             </div>
         </div>
 

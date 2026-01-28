@@ -7,7 +7,7 @@ use Filament\Resources\Pages\Page;
 
 class ViewQuotation extends Page
 {
-    protected static string $view = 'filament.resources.quotations.pages.view-quotation';
+    protected string $view = 'filament.resources.quotations.pages.view-quotation';
 
     public Quotation $quotation;
 

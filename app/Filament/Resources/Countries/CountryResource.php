@@ -18,7 +18,7 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobe;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAlt;
 
     public static function form(Schema $schema): Schema
     {

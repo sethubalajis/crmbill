@@ -20,11 +20,7 @@ class GstResource extends Resource
 {
     protected static ?string $model = Gst::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
-    protected static ?string $recordTitleAttribute = 'Gst';
-
-    public static function form(Schema $schema): Schema
+        protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPercent;
     {
         return $schema
             ->components([

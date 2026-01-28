@@ -20,11 +20,7 @@ class ItemResource extends Resource
 {
     protected static ?string $model = Item::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
-    public static function form(Schema $schema): Schema
-    {
-        return ItemForm::configure($schema);
+        protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCube;
     }
 
     public static function table(Table $table): Table

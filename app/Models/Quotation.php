@@ -50,9 +50,10 @@ class Quotation extends Model
     }
 
 
-public function refreshTotal($total)
+public function refreshTotal($total,$gst)
     {
         $this->total = $total;
+        $this->gststate= $gst;
         $this->saveQuietly(); // prevents infinite loops
     }
 

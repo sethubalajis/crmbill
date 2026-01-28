@@ -62,7 +62,9 @@ class QuotationItem extends Model
 
  if ($this->quotation) {
             $total = $this->quotation->quotationitems()->sum('total');
-             $this->quotation?->refreshTotal( $total);
+   $gst= $this->quotation->quotationitems()->sum('item_gst');
+
+             $this->quotation?->refreshTotal( $total,$gst);
         }
 
 

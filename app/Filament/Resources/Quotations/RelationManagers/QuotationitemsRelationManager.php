@@ -174,11 +174,13 @@ class QuotationitemsRelationManager extends RelationManager
             ->paginated(false);
     }
 
+    /*
     protected function updateQuotationTotal(): void
     {
         $quotation = $this->getOwnerRecord();
         $total = $quotation->quotationitems()->sum('total');
-        $quotation->update(['total' => round($total, 2)]);
+        $gst= $quotation->quotationitems()->sum('item_gst');
+      //  $quotation->update(['total' => round($total, 2)]);
          $quotation->ownerRecord->refresh();
         // Refresh the owner record to show updated total
         $quotation->refresh();
@@ -199,5 +201,6 @@ protected function afterDelete(): void
 {
     $this->ownerRecord->refresh();
 }
+    */
 
 }

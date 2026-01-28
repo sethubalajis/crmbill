@@ -21,11 +21,7 @@ class QuotationResource extends Resource
 {
     protected static ?string $model = Quotation::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
-    public static function form(Schema $schema): Schema
-    {
-        return QuotationForm::configure($schema);
+        protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
     }
 
     public static function table(Table $table): Table

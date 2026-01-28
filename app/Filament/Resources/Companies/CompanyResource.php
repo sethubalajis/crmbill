@@ -20,11 +20,7 @@ class CompanyResource extends Resource
 {
     protected static ?string $model = Company::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
-    public static function form(Schema $schema): Schema
-    {
-        return CompanyForm::configure($schema);
+        protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice;
     }
 
     public static function table(Table $table): Table

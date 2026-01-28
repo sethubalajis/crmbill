@@ -20,11 +20,7 @@ class EnquiryResource extends Resource
 {
     protected static ?string $model = Enquiry::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
-    public static function form(Schema $schema): Schema
-    {
-        return EnquiryForm::configure($schema);
+        protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeft;
     }
 
     public static function table(Table $table): Table

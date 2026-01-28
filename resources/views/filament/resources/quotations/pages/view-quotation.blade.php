@@ -326,7 +326,7 @@
                     <tr>
                         <th>Item</th>
                         <th style="text-align: center;">Quantity</th>
-                        <th style="text-align: right;">Rate</th>
+                        <th style="text-align: right;">Item Rate</th>
                         <th style="text-align: center;">GST %</th>
                         <th style="text-align: right;">GST Amount</th>
                         <th style="text-align: right;">Total</th>

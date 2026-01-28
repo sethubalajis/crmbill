@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Companies\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -49,7 +50,9 @@ class CompanyForm
                     ->default(null),
                 TextInput::make('accountname')
                     ->default(null),
-                TextInput::make('logo')
+                FileUpload::make('logo')
+                    ->image()
+                    ->directory('companies')
                     ->default(null),
             ]);
     }

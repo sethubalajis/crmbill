@@ -301,11 +301,6 @@
             </div>
         </div>
 
-        <div class="quotation-header">
-            <h2>{{ $quotation->quotationno }}</h2>
-            <p>Date: {{ $quotation->date->format('M d, Y') }}</p>
-        </div>
-
         <div class="details">
             <div class="detail-section">
                 <h3>Bill To</h3>

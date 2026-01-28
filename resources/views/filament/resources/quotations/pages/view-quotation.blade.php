@@ -233,21 +233,6 @@
             </div>
             <div class="company-info">
                 <h1>{{ $company?->name ?? 'Company Name' }}</h1>
-                @if($company?->address)
-                    <p>{{ $company->address }}</p>
-                @endif
-                @if($company?->city)
-                    <p>{{ $company->city->name }}, {{ $company->state?->name }}, {{ $company->country?->name }}</p>
-                @endif
-                @if($company?->phone)
-                    <p>Phone: {{ $company->phone }}</p>
-                @endif
-                @if($company?->email)
-                    <p>Email: {{ $company->email }}</p>
-                @endif
-                @if($company?->gstinno)
-                    <p>GSTIN: {{ $company->gstinno }}</p>
-                @endif
             </div>
         </div>
 

@@ -20,4 +20,12 @@ class EditQuotation extends EditRecord
             RestoreAction::make(),
         ];
     }
+
+     public function refreshQuotationTotal()
+    {
+        $this->record->refresh();
+
+        // THIS is the missing piece
+        $this->fillForm();
+    }
 }

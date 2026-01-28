@@ -26,6 +26,53 @@ class QuotationItem extends Model
         'total' => 'decimal:2',
     ];
 
+    protected static function booted()
+    {
+      static::created(function ($model) {
+            $model->updateQuotationTotal();
+        });
+
+        static::updated(function ($model) {
+            $model->updateQuotationTotal();
+        });
+
+        static::deleted(function ($model) {
+            $model->updateQuotationTotal();
+        });
+/*static::created(function ($model) {
+     $total = $this->quotation->quotationitems()->sum('total');
+            $model->quotation?->refreshTotal($total);
+        });
+
+        static::updated(function ($model) {
+             $total = $this->quotation->quotationitems()->sum('total');
+            $model->quotation?->refreshTotal($total);
+        });
+
+        static::deleted(function ($model) {
+             $total = $this->quotation->quotationitems()->sum('total');
+           
+        });
+*/
+
+    }
+
+    protected function updateQuotationTotal()
+    {
+
+ if ($this->quotation) {
+            $total = $this->quotation->quotationitems()->sum('total');
+             $this->quotation?->refreshTotal( $total);
+        }
+
+
+
+       /* if ($this->quotation) {
+            $total = $this->quotation->quotationitems()->sum('total');
+            $this->quotation->update(['total' => round($total, 2)]);
+        }*/
+    }
+
     public function quotation(): BelongsTo
     {
         return $this->belongsTo(Quotation::class);

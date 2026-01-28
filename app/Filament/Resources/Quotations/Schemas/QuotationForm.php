@@ -18,7 +18,8 @@ class QuotationForm
                     ->label('Quotation No')
                     ->disabled()
                     ->dehydrated(false)
-                    ->placeholder('Auto-generated'),
+                    ->placeholder('Auto-generated')
+                    ->id('quotationno'),
                 DatePicker::make('date')
                     ->default(today()),
                 Select::make('customer_id')
@@ -33,19 +34,26 @@ class QuotationForm
                     ->disabled()
                     ->dehydrated(false)
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->id('total')
+                    ->live(),
+
+ 
+
                 TextInput::make('gstcentral')
                     ->label('GST Central')
                     ->disabled()
                     ->dehydrated(false)
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->id('gstcentral'),
                 TextInput::make('gststate')
                     ->label('GST State')
                     ->disabled()
                     ->dehydrated(false)
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->id('gststate'),
             ]);
     }
 }

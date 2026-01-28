@@ -48,4 +48,13 @@ class Quotation extends Model
     {
         return $this->hasMany(QuotationItem::class);
     }
+
+
+public function refreshTotal($total)
+    {
+        $this->total = $total;
+        $this->saveQuietly(); // prevents infinite loops
+    }
+
+
 }

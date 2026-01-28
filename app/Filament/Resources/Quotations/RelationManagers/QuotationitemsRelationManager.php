@@ -11,12 +11,16 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Notifications\Notification;
+use Filament\Tables\Columns\Summarizers\Sum;
 
 class QuotationitemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'quotationitems';
 
     protected static ?string $recordTitleAttribute = 'item_id';
+
+    protected string $view = 'filament.resources.quotation-items-relation-manager';
 
     public function form(Schema $schema): Schema
     {
@@ -136,27 +140,38 @@ class QuotationitemsRelationManager extends RelationManager
                 TextColumn::make('item.name')->label('Item'),
                 TextColumn::make('quantity'),
                 TextColumn::make('gst.percentage')->label('GST %'),
-                TextColumn::make('item_rate')->label('Item Rate'),
-                TextColumn::make('item_gst')->label('Item GST'),
-                TextColumn::make('total')->label('Total'),
+                TextColumn::make('item_rate')->label('Item Rate')->summarize(
+                    Sum::make()
+                        ->label('Total rate')
+                ),
+
+
+                TextColumn::make('item_gst')->label('Item GST')->summarize(
+                    Sum::make()
+                        ->label('Total GST')
+                ),
+
+
+                TextColumn::make('total')->label('Total')
+ ->summarize(
+                    Sum::make()
+                        ->label('Grand Total')
+                ),
+
             ])
             ->headerActions([
                 CreateAction::make()
                     ->label('Add Item')
-                    ->after(function () {
-                        $this->updateQuotationTotal();
-                    }),
+                    ->successNotification(null),
             ])
             ->actions([
                 EditAction::make()
-                    ->after(function () {
-                        $this->updateQuotationTotal();
-                    }),
+                    ->successNotification(null),
                 DeleteAction::make()
-                    ->after(function () {
-                        $this->updateQuotationTotal();
-                    }),
-            ]);
+                    ->successNotification(null),
+            ])
+            ->striped()
+            ->paginated(false);
     }
 
     protected function updateQuotationTotal(): void
@@ -164,5 +179,25 @@ class QuotationitemsRelationManager extends RelationManager
         $quotation = $this->getOwnerRecord();
         $total = $quotation->quotationitems()->sum('total');
         $quotation->update(['total' => round($total, 2)]);
+         $quotation->ownerRecord->refresh();
+        // Refresh the owner record to show updated total
+        $quotation->refresh();
+         $this->dispatch('$refresh');
+         $this->dispatch('quotation-total-updated');
     }
+protected function afterCreate(): void
+{
+    $this->ownerRecord->refresh();
+}
+
+protected function afterEdit(): void
+{
+    $this->ownerRecord->refresh();
+}
+
+protected function afterDelete(): void
+{
+    $this->ownerRecord->refresh();
+}
+
 }

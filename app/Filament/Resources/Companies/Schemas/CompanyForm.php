@@ -39,6 +39,8 @@ class CompanyForm
                 TextInput::make('postalcode')
                     ->default(null),
                 TextInput::make('gstinno')
+                    ->label('GSTIN No')
+                    ->maxLength(10)
                     ->default(null),
                 TextInput::make('pan')
                     ->default(null),

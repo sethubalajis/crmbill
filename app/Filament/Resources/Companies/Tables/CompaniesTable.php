@@ -37,6 +37,7 @@ class CompaniesTable
                 TextColumn::make('postalcode')
                     ->searchable(),
                 TextColumn::make('gstinno')
+                    ->label('GSTIN No')
                     ->searchable(),
                 TextColumn::make('pan')
                     ->searchable(),

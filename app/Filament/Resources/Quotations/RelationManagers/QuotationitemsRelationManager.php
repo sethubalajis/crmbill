@@ -103,7 +103,7 @@ class QuotationitemsRelationManager extends RelationManager
                 }),
             TextInput::make('item_rate')
                 ->numeric()
-                ->label('Item Rate')
+                ->label('Item Rate In Rs.')
                 ->live()
                 ->afterStateUpdated(function ($state, $get, $set) {
                     $gstId = $get('gst_id');
@@ -140,7 +140,7 @@ class QuotationitemsRelationManager extends RelationManager
                 TextColumn::make('item.name')->label('Item'),
                 TextColumn::make('quantity'),
                 TextColumn::make('gst.percentage')->label('GST %'),
-                TextColumn::make('item_rate')->label('Item Rate')->summarize(
+                TextColumn::make('item_rate')->label('Item Rate In Rs.')->numeric(2)->summarize(
                     Sum::make()
                         ->label('Total rate')
                 ),
@@ -174,33 +174,5 @@ class QuotationitemsRelationManager extends RelationManager
             ->paginated(false);
     }
 
-    /*
-    protected function updateQuotationTotal(): void
-    {
-        $quotation = $this->getOwnerRecord();
-        $total = $quotation->quotationitems()->sum('total');
-        $gst= $quotation->quotationitems()->sum('item_gst');
-      //  $quotation->update(['total' => round($total, 2)]);
-         $quotation->ownerRecord->refresh();
-        // Refresh the owner record to show updated total
-        $quotation->refresh();
-         $this->dispatch('$refresh');
-         $this->dispatch('quotation-total-updated');
-    }
-protected function afterCreate(): void
-{
-    $this->ownerRecord->refresh();
-}
-
-protected function afterEdit(): void
-{
-    $this->ownerRecord->refresh();
-}
-
-protected function afterDelete(): void
-{
-    $this->ownerRecord->refresh();
-}
-    */
 
 }

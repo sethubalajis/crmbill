@@ -388,11 +388,11 @@
                         <th>Description</th>
                         <th style="text-align: center;">HSN</th>
                         <th style="text-align: center;">Quantity</th>
-                        <th style="text-align: right;">Item Rate</th>
-                        <th style="text-align: right;">Amount</th>
+                        <th style="text-align: right;">Item Rate in Rs.</th>
+                        <th style="text-align: right;">Amount In Rs.</th>
                         <th style="text-align: center;">GST %</th>
-                        <th style="text-align: right;">GST Amount</th>
-                        <th style="text-align: right;">Total</th>
+                        <th style="text-align: right;">GST Amount In Rs.</th>
+                        <th style="text-align: right;">Total In Rs.</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -401,11 +401,11 @@
                             <td>{{ $item->item->description ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->item->hsn ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->quantity }}</td>
-                            <td style="text-align: right;">Rs. {{ number_format($item->item_rate, 2) }}</td>
-                            <td style="text-align: right;">Rs. {{ number_format($item->quantity * $item->item_rate, 2) }}</td>
+                            <td style="text-align: right;"> {{ number_format($item->item_rate, 2) }}</td>
+                            <td style="text-align: right;"> {{ number_format($item->quantity * $item->item_rate, 2) }}</td>
                             <td style="text-align: center;">{{ $item->gst->percentage ?? 0 }}%</td>
-                            <td style="text-align: right;">Rs. {{ number_format($item->item_gst, 2) }}</td>
-                            <td style="text-align: right;">Rs. {{ number_format($item->total, 2) }}</td>
+                            <td style="text-align: right;"> {{ number_format($item->item_gst, 2) }}</td>
+                            <td style="text-align: right;"> {{ number_format($item->total, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -23,6 +23,7 @@ class InvoiceForm
                     ->maxLength(30),
                 DatePicker::make('invoicedate')
                     ->label('Invoice Date')
+                    ->default(today())
                     ->required(),
                 Select::make('customer_id')
                     ->label('Customer')

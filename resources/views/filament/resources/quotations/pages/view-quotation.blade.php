@@ -190,24 +190,21 @@
         }
 
         .total-row {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
             margin-bottom: 10px;
             font-size: 14px;
+            display: grid;
+            grid-template-columns: 1fr 150px;
             gap: 20px;
-            white-space: nowrap;
+            align-items: center;
         }
 
         .total-row label {
             font-weight: bold;
             text-align: right;
-            flex-shrink: 0;
         }
 
         .total-row .amount {
             text-align: right;
-            flex-shrink: 0;
         }
 
         .grand-total {

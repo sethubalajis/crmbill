@@ -317,10 +317,10 @@
                         <div style="display: flex;">
                             <div class="logo-section">
                                 @if($company?->logo)
-                                    @if(strpos($company->logo, 'storage/') === 0)
-                                        <img src="{{ asset($company->logo) }}" alt="Company Logo">
-                                    @else
+                                    @if(file_exists($company->logo))
                                         <img src="{{ $company->logo }}" alt="Company Logo">
+                                    @else
+                                        <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
                                     @endif
                                 @else
                                     <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">

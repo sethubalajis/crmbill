@@ -17,7 +17,7 @@ class InvoiceForm
             ->components([
                 TextInput::make('invoiceno')
                     ->label('Invoice Number')
-                    ->required()
+                    ->readOnly()
                     ->unique(Invoice::class, 'invoiceno', ignoreRecord: true)
                     ->maxLength(30),
                 DatePicker::make('invoicedate')

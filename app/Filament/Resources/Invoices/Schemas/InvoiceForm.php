@@ -31,23 +31,29 @@ class InvoiceForm
                     ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->company_name} | {$record->contact_person} | {$record->phone1}")
                     ->searchable()
                     ->required(),
+                Toggle::make('intrastate')
+                    ->label('Intrastate Transaction')
+                    ->default(false),
                 TextInput::make('total')
                     ->numeric()
                     ->step(0.01)
+                    ->disabled()
+                    ->dehydrated(false)
                     ->nullable(),
                 TextInput::make('cgst')
                     ->label('CGST')
                     ->numeric()
                     ->step(0.01)
+                    ->disabled()
+                    ->dehydrated(false)
                     ->nullable(),
                 TextInput::make('sgst')
                     ->label('SGST')
                     ->numeric()
                     ->step(0.01)
+                    ->disabled()
+                    ->dehydrated(false)
                     ->nullable(),
-                Toggle::make('intrastate')
-                    ->label('Intrastate Transaction')
-                    ->default(false),
             ]);
     }
 }

@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Table;
 
 class InvoiceitemsRelationManager extends RelationManager
@@ -128,10 +129,23 @@ class InvoiceitemsRelationManager extends RelationManager
                 TextColumn::make('gst.percentage')
                     ->label('GST %'),
                 TextColumn::make('item_rate')
-                    ->label('Item Rate'),
+                    ->label('Item Rate')
+                    ->summarize(
+                        Sum::make()
+                            ->label('Total rate')
+                    ),
                 TextColumn::make('item_gst')
-                    ->label('Item GST'),
-                TextColumn::make('total'),
+                    ->label('Item GST')
+                    ->summarize(
+                        Sum::make()
+                            ->label('Total GST')
+                    ),
+                TextColumn::make('total')
+                    ->label('Total')
+                    ->summarize(
+                        Sum::make()
+                            ->label('Grand Total')
+                    ),
             ])
             ->headerActions([
                 CreateAction::make()
@@ -140,6 +154,8 @@ class InvoiceitemsRelationManager extends RelationManager
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
-            ]);
+            ])
+            ->striped()
+            ->paginated(false);
     }
 }

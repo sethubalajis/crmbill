@@ -28,6 +28,8 @@ class InvoiceForm
                 Select::make('customer_id')
                     ->label('Customer')
                     ->relationship('customer', 'company_name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->company_name} | {$record->contact_person} | {$record->phone1}")
+                    ->searchable()
                     ->required(),
                 TextInput::make('total')
                     ->numeric()

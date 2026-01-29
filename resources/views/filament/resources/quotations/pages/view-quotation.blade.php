@@ -327,6 +327,7 @@
                         <th>Item</th>
                         <th style="text-align: center;">Quantity</th>
                         <th style="text-align: right;">Item Rate</th>
+                        <th style="text-align: right;">Amount</th>
                         <th style="text-align: center;">GST %</th>
                         <th style="text-align: right;">GST Amount</th>
                         <th style="text-align: right;">Total</th>
@@ -338,6 +339,7 @@
                             <td>{{ $item->item->name ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->quantity }}</td>
                             <td style="text-align: right;">₹ {{ number_format($item->item_rate, 2) }}</td>
+                            <td style="text-align: right;">₹ {{ number_format($item->quantity * $item->item_rate, 2) }}</td>
                             <td style="text-align: center;">{{ $item->gst->percentage ?? 0 }}%</td>
                             <td style="text-align: right;">₹ {{ number_format($item->item_gst, 2) }}</td>
                             <td style="text-align: right;">₹ {{ number_format($item->total, 2) }}</td>

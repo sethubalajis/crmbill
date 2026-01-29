@@ -55,6 +55,7 @@ class CompanyForm
                     ->disk('public')
                     ->directory('companies')
                     ->visibility('public')
+                    ->imagePreviewHeight('150')
                     ->default(null),
             ]);
     }

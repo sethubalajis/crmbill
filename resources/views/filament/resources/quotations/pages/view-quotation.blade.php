@@ -373,10 +373,6 @@
                 <div class="amount">₹ {{ number_format($quotation->total, 2) }}</div>
             </div>
         </div>
-
-        <div class="print-button">
-            <button onclick="window.print()">Print Quotation</button>
-        </div>
     </div>
 </body>
 </html>

@@ -16,3 +16,16 @@ Route::get('/quotations/{quotation}/view', function (Quotation $quotation) {
         'company' => $company
     ]);
 })->name('quotations.view');
+
+Route::get('/quotations/{quotation}/download-pdf', function (Quotation $quotation) {
+    $quotation->load('quotationitems.item', 'quotationitems.gst', 'customer');
+    $company = Company::with(['country', 'state', 'city'])->first();
+    
+    $html = view('filament.resources.quotations.pages.view-quotation', [
+        'quotation' => $quotation,
+        'company' => $company
+    ])->render();
+    
+    $pdf = \PDF::loadHTML($html);
+    return $pdf->download('Quotation_' . $quotation->quotationno . '.pdf');
+})->name('quotations.download-pdf');

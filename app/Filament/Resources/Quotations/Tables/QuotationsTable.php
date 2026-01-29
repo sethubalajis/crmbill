@@ -57,6 +57,11 @@ class QuotationsTable
                     ->icon('heroicon-m-eye')
                     ->url(fn ($record) => route('quotations.view', $record->id))
                     ->openUrlInNewTab(),
+                Action::make('download')
+                    ->label('Download')
+                    ->icon('heroicon-m-arrow-down-tray')
+                    ->url(fn ($record) => route('quotations.download-pdf', $record->id))
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([

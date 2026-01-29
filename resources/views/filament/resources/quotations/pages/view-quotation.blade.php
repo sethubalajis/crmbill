@@ -222,15 +222,16 @@
         }
 
         .total-section table {
-            width: 100%;
+            width: auto;
             border-collapse: collapse;
             margin: 0;
+            margin-left: auto;
             padding: 0;
         }
 
         .total-section table td {
             border: none;
-            padding: 5px 0;
+            padding: 5px 10px;
             vertical-align: middle;
         }
 
@@ -242,12 +243,12 @@
         .total-row label {
             font-weight: bold;
             text-align: right;
-            padding-right: 20px;
+            white-space: nowrap;
         }
 
         .total-row .amount {
             text-align: right;
-            width: 150px;
+            white-space: nowrap;
         }
 
         .grand-total {
@@ -258,13 +259,13 @@
 
         .grand-total label {
             text-align: right;
-            padding-right: 20px;
+            white-space: nowrap;
         }
 
         .grand-total .amount {
             text-align: right;
             color: #27ae60;
-            width: 150px;
+            white-space: nowrap;
         }
 
         .print-button {

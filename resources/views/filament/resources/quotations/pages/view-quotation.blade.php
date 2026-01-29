@@ -216,48 +216,55 @@
         }
 
         .total-section {
-            text-align: right;
             margin-top: 30px;
             padding-top: 20px;
             border-top: 2px solid #333;
         }
 
+        .total-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+        }
+
+        .total-section table td {
+            border: none;
+            padding: 5px 0;
+            vertical-align: middle;
+        }
+
         .total-row {
             margin-bottom: 10px;
             font-size: 14px;
-            display: grid;
-            grid-template-columns: 1fr 150px;
-            gap: 20px;
-            align-items: center;
         }
 
         .total-row label {
             font-weight: bold;
             text-align: right;
+            padding-right: 20px;
         }
 
         .total-row .amount {
             text-align: right;
+            width: 150px;
         }
 
         .grand-total {
-            display: flex;
-            justify-content: flex-end;
             margin-top: 15px;
             font-size: 16px;
             font-weight: bold;
         }
 
         .grand-total label {
-            margin-right: 20px;
-            min-width: 100px;
             text-align: right;
+            padding-right: 20px;
         }
 
         .grand-total .amount {
-            min-width: 100px;
             text-align: right;
             color: #27ae60;
+            width: 150px;
         }
 
         .print-button {
@@ -405,18 +412,20 @@
         </div>
 
         <div class="total-section">
-            <div class="total-row">
-                <label>Subtotal:</label>
-                <div class="amount">Rs. {{ number_format($quotation->quotationitems->sum(fn($item) => $item->item_rate * $item->quantity), 2) }}</div>
-            </div>
-            <div class="total-row">
-                <label>Total GST:</label>
-                <div class="amount">Rs. {{ number_format($quotation->quotationitems->sum('item_gst'), 2) }}</div>
-            </div>
-            <div class="grand-total">
-                <label>Grand Total:</label>
-                <div class="amount">Rs. {{ number_format($quotation->total, 2) }}</div>
-            </div>
+            <table>
+                <tr class="total-row">
+                    <td><label>Subtotal:</label></td>
+                    <td class="amount">Rs. {{ number_format($quotation->quotationitems->sum(fn($item) => $item->item_rate * $item->quantity), 2) }}</td>
+                </tr>
+                <tr class="total-row">
+                    <td><label>Total GST:</label></td>
+                    <td class="amount">Rs. {{ number_format($quotation->quotationitems->sum('item_gst'), 2) }}</td>
+                </tr>
+                <tr class="grand-total">
+                    <td><label>Grand Total:</label></td>
+                    <td class="amount">Rs. {{ number_format($quotation->total, 2) }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>

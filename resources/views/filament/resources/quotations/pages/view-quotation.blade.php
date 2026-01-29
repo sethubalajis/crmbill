@@ -134,10 +134,25 @@
         }
 
         .details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
             margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+        }
+
+        .details table td {
+            border: none;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .detail-section {
+            width: 50%;
         }
 
         .detail-section h3 {
@@ -145,12 +160,14 @@
             text-transform: uppercase;
             color: #7f8c8d;
             margin-bottom: 10px;
+            margin-top: 0;
             font-weight: bold;
         }
 
         .detail-section p {
             font-size: 14px;
             margin-bottom: 8px;
+            margin-top: 0;
             color: #2c3e50;
         }
 
@@ -335,22 +352,25 @@
         </div>
 
         <div class="details">
-            <div class="detail-section">
-                <h3>Bill To</h3>
-                <p><strong>{{ $quotation->customer->company_name ?? 'N/A' }}</strong></p>
-                <p>{{ $quotation->customer->contact_person ?? 'N/A' }}</p>
-                <p>{{ $quotation->customer->phone1 ?? 'N/A' }}</p>
-                @if($quotation->customer->email)
-                    <p>{{ $quotation->customer->email }}</p>
-                @endif
-            </div>
-
-            <div class="detail-section">
-                <h3>Quotation Details</h3>
-                <p><strong>Quotation No:</strong> {{ $quotation->quotationno }}</p>
-                <p><strong>Date:</strong> {{ $quotation->date->format('M d, Y') }}</p>
-                <p><strong>Type:</strong> {{ $quotation->intrastate ? 'Intra State' : 'Inter State' }}</p>
-            </div>
+            <table>
+                <tr>
+                    <td class="detail-section">
+                        <h3>Bill To</h3>
+                        <p><strong>{{ $quotation->customer->company_name ?? 'N/A' }}</strong></p>
+                        <p>{{ $quotation->customer->contact_person ?? 'N/A' }}</p>
+                        <p>{{ $quotation->customer->phone1 ?? 'N/A' }}</p>
+                        @if($quotation->customer->email)
+                            <p>{{ $quotation->customer->email }}</p>
+                        @endif
+                    </td>
+                    <td class="detail-section">
+                        <h3>Quotation Details</h3>
+                        <p><strong>Quotation No:</strong> {{ $quotation->quotationno }}</p>
+                        <p><strong>Date:</strong> {{ $quotation->date->format('M d, Y') }}</p>
+                        <p><strong>Type:</strong> {{ $quotation->intrastate ? 'Intra State' : 'Inter State' }}</p>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="table-section">

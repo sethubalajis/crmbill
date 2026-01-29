@@ -9,6 +9,19 @@ class Invoice extends Model
 {
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($invoice) {
+            if (empty($invoice->invoiceno)) {
+                $lastInvoice = static::withTrashed()->orderBy('id', 'desc')->first();
+                $nextId = $lastInvoice ? $lastInvoice->id + 1 : 1;
+                $invoice->invoiceno = 'INV' . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+            }
+        });
+    }
+
     protected $fillable = [
         'invoiceno',
         'invoicedate',

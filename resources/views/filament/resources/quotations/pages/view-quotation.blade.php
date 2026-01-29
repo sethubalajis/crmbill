@@ -146,6 +146,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 12px;
         }
 
         table thead {
@@ -154,16 +155,23 @@
         }
 
         table th {
-            padding: 12px;
+            padding: 10px;
             text-align: left;
             font-weight: bold;
             border: 1px solid #ddd;
+            font-size: 11px;
         }
 
         table td {
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #ddd;
             color: #2c3e50;
+        }
+
+        table td:first-child {
+            min-width: 200px;
+            max-width: 250px;
+            word-wrap: break-word;
         }
 
         table tbody tr:nth-child(even) {

@@ -231,7 +231,7 @@
 
         .total-section table td {
             border: none;
-            padding: 5px 10px;
+            padding: 5px 5px;
             vertical-align: middle;
         }
 

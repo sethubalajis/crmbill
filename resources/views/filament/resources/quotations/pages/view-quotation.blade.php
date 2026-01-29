@@ -324,7 +324,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Item</th>
+                        <th>Description</th>
                         <th style="text-align: center;">HSN</th>
                         <th style="text-align: center;">Quantity</th>
                         <th style="text-align: right;">Item Rate</th>
@@ -337,7 +337,7 @@
                 <tbody>
                     @foreach($quotation->quotationitems as $item)
                         <tr>
-                            <td>{{ $item->item->name ?? 'N/A' }}</td>
+                            <td>{{ $item->item->description ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->item->hsn ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->quantity }}</td>
                             <td style="text-align: right;">₹ {{ number_format($item->item_rate, 2) }}</td>

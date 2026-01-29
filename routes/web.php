@@ -21,6 +21,11 @@ Route::get('/quotations/{quotation}/download-pdf', function (Quotation $quotatio
     $quotation->load('quotationitems.item', 'quotationitems.gst', 'customer');
     $company = Company::with(['country', 'state', 'city'])->first();
     
+    // Convert asset URLs to absolute file paths for DomPDF
+    if ($company?->logo) {
+        $company->logo = public_path('storage/' . $company->logo);
+    }
+    
     $html = view('filament.resources.quotations.pages.view-quotation', [
         'quotation' => $quotation,
         'company' => $company

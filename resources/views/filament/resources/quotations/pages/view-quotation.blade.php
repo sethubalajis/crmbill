@@ -273,7 +273,11 @@
             <div class="company-section">
                 <div class="logo-section">
                     @if($company?->logo)
-                        <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
+                        @if(strpos($company->logo, 'storage/') === 0)
+                            <img src="{{ asset($company->logo) }}" alt="Company Logo">
+                        @else
+                            <img src="{{ $company->logo }}" alt="Company Logo">
+                        @endif
                     @else
                         <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
                             <span style="color: #95a5a6; font-size: 12px;">No Logo</span>

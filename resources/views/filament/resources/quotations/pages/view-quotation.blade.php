@@ -73,12 +73,14 @@
         .company-info h1 {
             font-size: 24px;
             margin-bottom: 8px;
+            margin-top: 0;
             color: #2c3e50;
         }
 
         .company-info p {
             font-size: 13px;
             margin-bottom: 5px;
+            margin-top: 0;
             color: #555;
             line-height: 1.6;
         }
@@ -86,18 +88,21 @@
         .quotation-info {
             text-align: right;
             flex-shrink: 0;
+            align-self: flex-start;
         }
 
         .quotation-info h2 {
             font-size: 24px;
             color: #2c3e50;
             margin-bottom: 8px;
+            margin-top: 0;
         }
 
         .quotation-info p {
             font-size: 14px;
             margin-bottom: 5px;
             color: #555;
+            margin-top: 0;
         }
 
         .quotation-header {

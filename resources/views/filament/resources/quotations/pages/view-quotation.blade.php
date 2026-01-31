@@ -320,7 +320,7 @@
                                     @if(file_exists($company->logo))
                                         <img src="{{ $company->logo }}" alt="Company Logo">
                                     @else
-                                        <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
+                                        <img src="{{ asset('companies/' . $company->logo) }}" alt="Company Logo">
                                     @endif
                                 @else
                                     <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">

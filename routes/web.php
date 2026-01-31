@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Company;
 use App\Models\Quotation;
 use App\Models\Invoice;
-
+use Illuminate\Support\Facades\Artisan;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,7 +24,7 @@ Route::get('/quotations/{quotation}/download-pdf', function (Quotation $quotatio
     
     // Convert asset URLs to absolute file paths for DomPDF
     if ($company?->logo) {
-        $company->logo = public_path('storage/' . $company->logo);
+        $company->logo = public_path('companies/' . $company->logo);
     }
     
     $html = view('filament.resources.quotations.pages.view-quotation', [
@@ -51,7 +51,7 @@ Route::get('/invoices/{invoice}/download-pdf', function (Invoice $invoice) {
     
     // Convert asset URLs to absolute file paths for DomPDF
     if ($company?->logo) {
-        $company->logo = public_path('storage/' . $company->logo);
+        $company->logo = public_path('companies/' . $company->logo);
     }
     
     $html = view('filament.resources.invoices.pages.view-invoice', [
@@ -62,3 +62,7 @@ Route::get('/invoices/{invoice}/download-pdf', function (Invoice $invoice) {
     $pdf = \PDF::loadHTML($html);
     return $pdf->download('Invoice_' . $invoice->invoiceno . '.pdf');
 })->name('invoices.download-pdf');
+
+
+
+

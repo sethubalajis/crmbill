@@ -39,8 +39,6 @@ class CompanyForm
                 TextInput::make('postalcode')
                     ->default(null),
                 TextInput::make('gstinno')
-                    ->label('GSTIN No')
-                    ->maxLength(10)
                     ->default(null),
                 TextInput::make('pan')
                     ->default(null),
@@ -54,8 +52,7 @@ class CompanyForm
                     ->default(null),
                 FileUpload::make('logo')
                     ->image()
-                    ->disk('public')
-                    ->directory('companies')
+                    ->disk('companies')
                     ->visibility('public')
                     ->imagePreviewHeight('150')
                     ->default(null),

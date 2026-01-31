@@ -284,7 +284,7 @@
                                     @if(file_exists($company->logo))
                                         <img src="{{ $company->logo }}" alt="Company Logo">
                                     @else
-                                        <img src="{{ asset('storage/' . $company->logo) }}" alt="Company Logo">
+                                        <img src="{{ asset('companies/' . $company->logo) }}" alt="Company Logo">
                                     @endif
                                 @else
                                     <div style="width: 120px; height: 120px; background-color: #ecf0f1; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
@@ -378,17 +378,120 @@
 
         <div class="total-section">
             <table>
-                <tr class="total-row">
-                    <td><label>Subtotal:</label></td>
-                    <td class="amount">Rs. {{ number_format($invoice->items->sum(fn($item) => $item->item_rate * $item->quantity), 2) }}</td>
-                </tr>
-                <tr class="total-row">
-                    <td><label>Total GST:</label></td>
-                    <td class="amount">Rs. {{ number_format($invoice->items->sum('item_gst'), 2) }}</td>
-                </tr>
                 <tr class="grand-total">
-                    <td><label>Grand Total:</label></td>
-                    <td class="amount">Rs. {{ number_format($invoice->total, 2) }}</td>
+                    <td><label>Total:</label></td>
+                    <td class="amount">Rs. {{ number_format($invoice->items->sum(fn($item) => $item->total), 2) }}</td>
+                </tr>
+                <tr class="total-row">
+                    <td><label>Total (in words):</label></td>
+                    <td style="text-align: left;">{{ numberToWords($invoice->items->sum(fn($item) => $item->total)) }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="text-align: center; width: 40px;">S.No</th>
+                        <th rowspan="2" style="text-align: center;">HSN/SAC</th>
+                        <th rowspan="2" style="text-align: right;">Taxable Value</th>
+                        <th colspan="2" style="text-align: center;">CGST</th>
+                        <th colspan="2" style="text-align: center;">SGST/UTGST</th>
+                        <th rowspan="2" style="text-align: right;">Total Tax Amount</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center;">Rate</th>
+                        <th style="text-align: right;">Amount</th>
+                        <th style="text-align: center;">Rate</th>
+                        <th style="text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $totalTaxableValue = 0;
+                        $totalCgstAmount = 0;
+                        $totalSgstAmount = 0;
+                        $totalTaxAmount = 0;
+                    @endphp
+                    @foreach($invoice->items as $key => $item)
+                        @php
+                            $sno = $key + 1;
+                            $hsn = $item->item->hsn ?? 'N/A';
+                            $taxableValue = $item->quantity * $item->item_rate;
+                            $gstRate = $item->gst->percentage ?? 0;
+                            
+                            if ($invoice->intrastate) {
+                                $cgstRate = $gstRate / 2;
+                                $sgstRate = $gstRate / 2;
+                            } else {
+                                $cgstRate = $gstRate;
+                                $sgstRate = 0;
+                            }
+                            
+                            $cgstAmount = $taxableValue * ($cgstRate / 100);
+                            $sgstAmount = $taxableValue * ($sgstRate / 100);
+                            $totalTaxAmount = $cgstAmount + $sgstAmount;
+                            
+                            // Add to totals
+                            $totalTaxableValue += $taxableValue;
+                            $totalCgstAmount += $cgstAmount;
+                            $totalSgstAmount += $sgstAmount;
+                            $totalTaxAmount += $totalTaxAmount;
+                        @endphp
+                        <tr>
+                            <td style="text-align: center;">{{ $sno }}</td>
+                            <td style="text-align: center;">{{ $hsn }}</td>
+                            <td style="text-align: right;">{{ number_format($taxableValue, 2) }}</td>
+                            <td style="text-align: center;">{{ number_format($cgstRate, 2) }}%</td>
+                            <td style="text-align: right;">{{ number_format($cgstAmount, 2) }}</td>
+                            <td style="text-align: center;">{{ number_format($sgstRate, 2) }}%</td>
+                            <td style="text-align: right;">{{ number_format($sgstAmount, 2) }}</td>
+                            <td style="text-align: right;">{{ number_format($cgstAmount + $sgstAmount, 2) }}</td>
+                        </tr>
+                    @endforeach
+                    <tr style="font-weight: bold; background-color: #ecf0f1;">
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">Total</td>
+                        <td style="text-align: right;">{{ number_format($totalTaxableValue, 2) }}</td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: right;">{{ number_format($totalCgstAmount, 2) }}</td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: right;">{{ number_format($totalSgstAmount, 2) }}</td>
+                        <td style="text-align: right;">{{ number_format($totalCgstAmount + $totalSgstAmount, 2) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-section">
+            <table>
+                <tr class="total-row">
+                    <td><label>Amount Chargeable (in words):</label></td>
+                    <td style="text-align: left;">{{ numberToWords($totalCgstAmount + $totalSgstAmount) }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="details" style="margin-top: 60px;">
+            <table>
+                <tr>
+                    <td class="detail-section" style="vertical-align: top; width: 33.33%;">
+                        <h3>Bank details</h3>
+                        <p><strong>Name:</strong> {{ $company?->bankname ?? 'N/A' }}</p>
+                        <p><strong>Account No:</strong> {{ $company?->accountno ?? 'N/A' }}</p>
+                        <p><strong>IFSC code:</strong> {{ $company?->ifsc ?? 'N/A' }}</p>
+                        <p><strong>Account Holder's Name:</strong> {{ $company?->accountname ?? 'N/A' }}</p>
+                    </td>
+                    <td class="detail-section" style="vertical-align: top; width: 33.33%;">
+                        <h3>Terms and conditions</h3>
+                    </td>
+                    <td class="detail-section" style="vertical-align: top; width: 33.34%;">
+                        <h3 style="text-align: right;">For {{ $company?->name ?? 'Company Name' }}</h3>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p style="text-align: right;"><strong>Authorized Signatory</strong></p>
+                    </td>
                 </tr>
             </table>
         </div>

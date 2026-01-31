@@ -47,6 +47,15 @@ return [
             'report' => false,
         ],
 
+        'companies' => [
+            'driver' => 'local',
+            'root' => public_path('companies'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/companies',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

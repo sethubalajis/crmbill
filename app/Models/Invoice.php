@@ -17,7 +17,8 @@ class Invoice extends Model
             if (empty($invoice->invoiceno)) {
                 $lastInvoice = static::withTrashed()->orderBy('id', 'desc')->first();
                 $nextId = $lastInvoice ? $lastInvoice->id + 1 : 1;
-                $invoice->invoiceno = 'INV' . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+                $financialYear = Setting::where('key', 'current_financial_year')->value('value');
+                $invoice->invoiceno = 'INV' . $financialYear . str_pad($nextId, 6, '0', STR_PAD_LEFT);
             }
         });
     }

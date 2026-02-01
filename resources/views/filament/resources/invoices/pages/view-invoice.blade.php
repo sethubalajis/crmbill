@@ -32,7 +32,7 @@
         }
 
         .page-title h1 {
-            font-size: 36px;
+            font-size: 28px;
             color: #2c3e50;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -82,7 +82,7 @@
         }
 
         .company-info h1 {
-            font-size: 24px;
+            font-size: 18px;
             margin-bottom: 8px;
             margin-top: 0;
             color: #2c3e50;
@@ -103,7 +103,7 @@
         }
 
         .invoice-info h2 {
-            font-size: 24px;
+            font-size: 18px;
             color: #2c3e50;
             margin-bottom: 8px;
             margin-top: 0;
@@ -182,11 +182,6 @@
             padding: 10px;
             border: 1px solid #ddd;
             color: #2c3e50;
-        }
-
-        table td:first-child {
-            min-width: 200px;
-            max-width: 250px;
             word-wrap: break-word;
         }
 
@@ -294,15 +289,13 @@
                             </div>
                             <div class="company-info">
                                 <h1>{{ $company?->name ?? 'Company Name' }}</h1>
-                                @if($company?->address)
-                                    <p>{{ $company->address }}</p>
-                                @endif
-                                @if($company?->city)
-                                    <p>{{ $company->city->name }}@if($company->postalcode), {{ $company->postalcode }}@endif</p>
-                                @endif
-                                @if($company?->state || $company?->country)
-                                    <p>{{ $company->state?->name }}@if($company->state && $company->country), @endif{{ $company->country?->name }}</p>
-                                @endif
+                                <p>
+                                    @if($company?->address){{ $company->address }}@endif
+                                    @if($company?->city){{ $company->address ? ', ' : '' }}{{ $company->city->name }}@endif
+                                    @if($company?->state){{ ($company->address || $company->city) ? ', ' : '' }}{{ $company->state->name }}@endif
+                                    @if($company?->country){{ ($company->address || $company->city || $company->state) ? ', ' : '' }}{{ $company->country->name }}@endif
+                                    @if($company?->postalcode){{ ($company->address || $company->city || $company->state || $company->country) ? ', ' : '' }}{{ $company->postalcode }}@endif
+                                </p>
                                 @if($company?->phone)
                                     <p>Phone: {{ $company->phone }}@if($company->phone2), {{ $company->phone2 }}@endif</p>
                                 @endif
@@ -349,19 +342,27 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Description</th>
-                        <th style="text-align: center;">HSN</th>
-                        <th style="text-align: center;">Quantity</th>
-                        <th style="text-align: right;">Item Rate In Rs.</th>
-                        <th style="text-align: right;">Amount In Rs.</th>
-                        <th style="text-align: center;">GST %</th>
-                        <th style="text-align: right;">GST Amount In Rs.</th>
-                        <th style="text-align: right;">Total</th>
+                        <th style="width: 5%; text-align: center;">S.No</th>
+                        <th style="width: 35%;">Description</th>
+                        <th style="width: 10%; text-align: center;">HSN</th>
+                        <th style="width: 8%; text-align: center;">Quantity</th>
+                        <th style="width: 12%; text-align: right;">Item Rate In Rs.</th>
+                        <th style="width: 12%; text-align: right;">Amount In Rs.</th>
+                        <th style="width: 7%; text-align: center;">GST %</th>
+                        <th style="width: 10%; text-align: right;">GST Amount In Rs.</th>
+                        <th style="width: 12%; text-align: right;">Total</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $sno = 0;
+                    @endphp
                     @foreach($invoice->items as $item)
+                        @php
+                            $sno = $sno + 1;
+                        @endphp
                         <tr>
+                            <td style="text-align: center;">{{ $sno }}</td>
                             <td>{{ $item->item->description ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->item->hsn ?? 'N/A' }}</td>
                             <td style="text-align: center;">{{ $item->quantity }}</td>
@@ -485,6 +486,7 @@
                     </td>
                     <td class="detail-section" style="vertical-align: top; width: 33.33%;">
                         <h3>Terms and conditions</h3>
+                        <p>{{ \App\Models\Setting::where('key', 'Invoice_terms_and_condiation')->value('value') ?? 'N/A' }}</p>
                     </td>
                     <td class="detail-section" style="vertical-align: top; width: 33.34%;">
                         <h3 style="text-align: right;">For {{ $company?->name ?? 'Company Name' }}</h3>

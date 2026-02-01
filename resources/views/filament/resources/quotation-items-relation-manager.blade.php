@@ -1,5 +1,3 @@
-<div class="fi-resource-relation-manager">
-    {{ $this->content }}
+{{ $this->content }}
 
-    <x-filament-panels::unsaved-action-changes-alert />
-</div>
+<x-filament-panels::unsaved-action-changes-alert />

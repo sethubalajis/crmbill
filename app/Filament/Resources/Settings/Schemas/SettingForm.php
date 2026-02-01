@@ -13,7 +13,9 @@ class SettingForm
             ->components([
                 TextInput::make('key')
                     ->required()
-                    ->unique(ignoreRecord: true),
+                    ->unique(ignoreRecord: true)
+                    ->disabled()
+                    ->dehydrated(),
                 TextInput::make('value')
                     ->default(null),
             ]);

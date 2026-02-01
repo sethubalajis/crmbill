@@ -39,6 +39,7 @@ class InvoiceForm
                     ->step(0.01)
                     ->disabled()
                     ->dehydrated(false)
+                    ->hidden()
                     ->nullable(),
                 TextInput::make('cgst')
                     ->label('CGST')
@@ -46,6 +47,7 @@ class InvoiceForm
                     ->step(0.01)
                     ->disabled()
                     ->dehydrated(false)
+                    ->hidden()
                     ->nullable(),
                 TextInput::make('sgst')
                     ->label('SGST')
@@ -53,6 +55,7 @@ class InvoiceForm
                     ->step(0.01)
                     ->disabled()
                     ->dehydrated(false)
+                    ->hidden()
                     ->nullable(),
             ]);
     }

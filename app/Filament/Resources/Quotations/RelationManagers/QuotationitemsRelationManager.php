@@ -20,8 +20,6 @@ class QuotationitemsRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'item_id';
 
-    protected string $view = 'filament.resources.quotation-items-relation-manager';
-
     public function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -137,26 +135,25 @@ class QuotationitemsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('item.name')->label('Item'),
+                TextColumn::make('id')
+                    ->label('S.No')
+                    ->rowIndex(isFromZero: false),
+                TextColumn::make('item.name')->label('Description'),
                 TextColumn::make('quantity'),
                 TextColumn::make('gst.percentage')->label('GST %'),
                 TextColumn::make('item_rate')->label('Item Rate In Rs.')->numeric(2)->summarize(
                     Sum::make()
                         ->label('Total rate')
                 ),
-
-
                 TextColumn::make('item_gst')->label('Item GST')->summarize(
                     Sum::make()
                         ->label('Total GST')
                 ),
-
-
                 TextColumn::make('total')->label('Total')
- ->summarize(
-                    Sum::make()
-                        ->label('Grand Total')
-                ),
+                    ->summarize(
+                        Sum::make()
+                            ->label('Grand Total')
+                    ),
 
             ])
             ->headerActions([

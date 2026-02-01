@@ -35,6 +35,7 @@ class QuotationForm
                     ->dehydrated(false)
                     ->numeric()
                     ->default(null)
+                    ->hidden()
                     ->id('total')
                     ->live(),
 
@@ -46,6 +47,7 @@ class QuotationForm
                     ->dehydrated(false)
                     ->numeric()
                     ->default(null)
+                    ->hidden()
                     ->id('gststate'),
             ]);
     }

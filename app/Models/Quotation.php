@@ -19,16 +19,13 @@ class Quotation extends Model
             if (empty($quotation->quotationno)) {
                 $lastQuotation = static::withTrashed()->orderBy('id', 'desc')->first();
                 $nextId = $lastQuotation ? $lastQuotation->id + 1 : 1;
-$financialYear = Setting::where('key', 'current_financial_year')->value('value');
+                
+                $prefix = Setting::where('key', 'quotationno_prefix')->value('value') ?? '';
+                $financialYear = Setting::where('key', 'current_financial_year')->value('value');
+                $suffix = Setting::where('key', 'quotationno_sufix')->value('value') ?? '';
 
-                $quotation->quotationno = 'QUO' .$financialYear . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+                $quotation->quotationno = $prefix . $financialYear . $suffix . str_pad($nextId, 6, '0', STR_PAD_LEFT);
             }
-
-
-
-
-
-
         });
     }
 

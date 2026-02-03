@@ -32,7 +32,7 @@
         }
 
         .page-title h1 {
-            font-size: 28px;
+            font-size: 20px;
             color: #2c3e50;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -40,7 +40,7 @@
         }
 
         .header {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #333;
             padding-bottom: 20px;
             width: 100%;
@@ -82,7 +82,7 @@
         }
 
         .company-info h1 {
-            font-size: 18px;
+            font-size: 14px;
             margin-bottom: 8px;
             margin-top: 0;
             color: #2c3e50;
@@ -90,10 +90,10 @@
 
         .company-info p {
             font-size: 13px;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
             margin-top: 0;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.3;
         }
 
         .invoice-info {
@@ -103,7 +103,7 @@
         }
 
         .invoice-info h2 {
-            font-size: 18px;
+            font-size: 14px;
             color: #2c3e50;
             margin-bottom: 8px;
             margin-top: 0;
@@ -200,10 +200,9 @@
         }
 
         .total-section table {
-            width: auto;
+            width: 100%;
             border-collapse: collapse;
             margin: 0;
-            margin-left: auto;
             padding: 0;
         }
 
@@ -213,6 +212,26 @@
             vertical-align: middle;
         }
 
+        .total-row td:first-child {
+            text-align: left;
+            width: auto;
+        }
+
+        .total-row td:last-child {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .grand-total td:first-child {
+            text-align: right;
+            width: auto;
+        }
+
+        .grand-total td:last-child {
+            text-align: right;
+            padding-left: 5px;
+        }
+
         .total-row {
             margin-bottom: 10px;
             font-size: 14px;
@@ -220,12 +239,12 @@
 
         .total-row label {
             font-weight: bold;
-            text-align: right;
+            text-align: left;
             white-space: nowrap;
         }
 
         .total-row .amount {
-            text-align: right;
+            text-align: left;
             white-space: nowrap;
         }
 
@@ -292,10 +311,17 @@
                                 <p>
                                     @if($company?->address){{ $company->address }}@endif
                                     @if($company?->city){{ $company->address ? ', ' : '' }}{{ $company->city->name }}@endif
-                                    @if($company?->state){{ ($company->address || $company->city) ? ', ' : '' }}{{ $company->state->name }}@endif
-                                    @if($company?->country){{ ($company->address || $company->city || $company->state) ? ', ' : '' }}{{ $company->country->name }}@endif
-                                    @if($company?->postalcode){{ ($company->address || $company->city || $company->state || $company->country) ? ', ' : '' }}{{ $company->postalcode }}@endif
+                                    @if($company?->state){{ ($company->address || $company->city) ? ', ' : '' }}@endif
+                                  
                                 </p>
+                                
+<p>
+    {{ $company->state->name }} 
+  @if($company?->postalcode){{ ( $company->state ) ? ', ' : '' }}   {{ $company->postalcode }}@endif
+
+</p>
+
+
                                 @if($company?->phone)
                                     <p>Phone: {{ $company->phone }}@if($company->phone2), {{ $company->phone2 }}@endif</p>
                                 @endif
@@ -346,11 +372,11 @@
                         <th style="width: 35%;">Description</th>
                         <th style="width: 10%; text-align: center;">HSN</th>
                         <th style="width: 8%; text-align: center;">Quantity</th>
-                        <th style="width: 12%; text-align: right;">Item Rate In Rs.</th>
-                        <th style="width: 12%; text-align: right;">Amount In Rs.</th>
+                        <th style="width: 12%; text-align: center;">Item Rate (In Rs.)</th>
+                        <th style="width: 12%; text-align: center;">Amount (In Rs.)</th>
                         <th style="width: 7%; text-align: center;">GST %</th>
-                        <th style="width: 10%; text-align: right;">GST Amount In Rs.</th>
-                        <th style="width: 12%; text-align: right;">Total</th>
+                        <th style="width: 10%; text-align: center;">GST Amount (In Rs.)</th>
+                        <th style="width: 12%; text-align: center;">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -380,12 +406,14 @@
         <div class="total-section">
             <table>
                 <tr class="grand-total">
-                    <td><label>Total:</label></td>
-                    <td class="amount">Rs. {{ number_format($invoice->items->sum(fn($item) => $item->total), 2) }}</td>
+                    <td><label></label></td>
+                    <td style="text-align: right;"><label>Total:</label></td>
+                    <td class="amount" style="width: 15%;">Rs. {{ number_format($invoice->items->sum(fn($item) => $item->total), 2) }}</td>
                 </tr>
                 <tr class="total-row">
-                    <td><label>Total (in words):</label></td>
-                    <td style="text-align: left;">{{ numberToWords($invoice->items->sum(fn($item) => $item->total)) }}</td>
+                    <td style="width: 10%;"><label>Total (in words):</label></td>
+                   
+                    <td  colspan="2" style="text-align: left;">{{ numberToWords($invoice->items->sum(fn($item) => $item->total)) }}</td>
                 </tr>
             </table>
         </div>
@@ -468,7 +496,7 @@
         <div class="total-section">
             <table>
                 <tr class="total-row">
-                    <td><label>Amount Chargeable (in words):</label></td>
+                    <td  style="width: 5%;"><label>Amount Chargeable (in words):</label></td>
                     <td style="text-align: left;">{{ numberToWords($totalCgstAmount + $totalSgstAmount) }}</td>
                 </tr>
             </table>
@@ -486,7 +514,7 @@
                     </td>
                     <td class="detail-section" style="vertical-align: top; width: 33.33%;">
                         <h3>Terms and conditions</h3>
-                        <p>{{ \App\Models\Setting::where('key', 'Invoice_terms_and_condiation')->value('value') ?? 'N/A' }}</p>
+                        <p style="white-space: pre-wrap;">{{ \App\Models\Setting::where('key', 'Invoice_terms_and_condiation')->value('value') ?? 'N/A' }}</p>
                     </td>
                     <td class="detail-section" style="vertical-align: top; width: 33.34%;">
                         <h3 style="text-align: right;">For {{ $company?->name ?? 'Company Name' }}</h3>

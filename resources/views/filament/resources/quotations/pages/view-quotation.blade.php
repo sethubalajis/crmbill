@@ -32,7 +32,7 @@
         }
 
         .page-title h1 {
-            font-size: 28px;
+            font-size: 20px;
             color: #2c3e50;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -40,7 +40,7 @@
         }
 
         .header {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #333;
             padding-bottom: 20px;
             width: 100%;
@@ -79,10 +79,11 @@
         .company-info {
             display: inline-block;
             vertical-align: top;
+            text-align: left;
         }
 
         .company-info h1 {
-            font-size: 18px;
+            font-size: 14px;
             margin-bottom: 8px;
             margin-top: 0;
             color: #2c3e50;
@@ -90,10 +91,10 @@
 
         .company-info p {
             font-size: 13px;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
             margin-top: 0;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.3;
         }
 
         .quotation-info {
@@ -103,7 +104,7 @@
         }
 
         .quotation-info h2 {
-            font-size: 18px;
+            font-size: 14px;
             color: #2c3e50;
             margin-bottom: 8px;
             margin-top: 0;
@@ -153,6 +154,7 @@
 
         .detail-section {
             width: 50%;
+            text-align: left;
         }
 
         .detail-section h3 {
@@ -190,7 +192,7 @@
 
         table th {
             padding: 10px;
-            text-align: left;
+            text-align: center;
             font-weight: bold;
             border: 1px solid #ddd;
             font-size: 11px;
@@ -200,6 +202,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             color: #2c3e50;
+            text-align: center;
         }
 
         table td:first-child {
@@ -219,6 +222,7 @@
             margin-top: 30px;
             padding-top: 20px;
             border-top: 2px solid #333;
+            margin-bottom: 20px;
         }
 
         .total-section table {
@@ -331,8 +335,13 @@
                             <div class="company-info">
                                 <h1>{{ $company?->name ?? 'Company Name' }}</h1>
                                 @if($company?->address || $company?->city || $company?->state || $company?->country)
-                                    <p>{{ $company->address }}@if($company?->city), {{ $company->city->name }}@endif@if($company->postalcode), {{ $company->postalcode }}@endif@if($company?->state), {{ $company->state?->name }}@endif@if($company?->country)@if($company->state || $company->postalcode || $company->city), @endif{{ $company->country?->name }}@endif</p>
+                                    <p>{{ $company->address }}@if($company?->city), {{ $company->city->name }}@endif
+                                       </p>
                                 @endif
+ @if( $company?->state || $company?->country)
+<p> @if($company?->state){{ $company->state?->name }}@endif@if($company->postalcode), {{ $company->postalcode }}@endif  </p>
+    @endif
+
                                 @if($company?->phone)
                                     <p>Phone: {{ $company->phone }}@if($company->phone2), {{ $company->phone2 }}@endif</p>
                                 @endif
@@ -380,14 +389,14 @@
                 <thead>
                     <tr>
                         <th style="width: 5%; text-align: center;">S.No</th>
-                        <th style="width: 35%;">Description</th>
+                        <th style="width: 35%; text-align: center;">Description</th>
                         <th style="width: 10%; text-align: center;">HSN</th>
                         <th style="width: 8%; text-align: center;">Quantity</th>
-                        <th style="width: 12%; text-align: right;">Item Rate in Rs.</th>
-                        <th style="width: 12%; text-align: right;">Amount In Rs.</th>
+                        <th style="width: 12%; text-align: center;">Item Rate (Rs.)</th>
+                        <th style="width: 12%; text-align: center;">Amount (Rs.)</th>
                         <th style="width: 7%; text-align: center;">GST %</th>
-                        <th style="width: 10%; text-align: right;">GST Amount In Rs.</th>
-                        <th style="width: 12%; text-align: right;">Total In Rs.</th>
+                        <th style="width: 10%; text-align: center;">GST Amount (Rs.)</th>
+                        <th style="width: 12%; text-align: center;">Total (Rs.)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -438,14 +447,14 @@
                 <tr>
                     <td class="detail-section" style="vertical-align: top; width: 33.33%;">
                         <h3>Bank details</h3>
-                        <p><strong>Name:</strong> {{ $company?->bankname ?? 'N/A' }}</p>
+                        <p><strong>Account Name:</strong> {{ $company?->accountname ?? 'N/A' }}</p>
                         <p><strong>Account No:</strong> {{ $company?->accountno ?? 'N/A' }}</p>
+                        <p><strong>Bank Name:</strong> {{ $company?->bankname ?? 'N/A' }}</p>
                         <p><strong>IFSC code:</strong> {{ $company?->ifsc ?? 'N/A' }}</p>
-                        <p><strong>Account Holder's Name:</strong> {{ $company?->accountname ?? 'N/A' }}</p>
                     </td>
                     <td class="detail-section" style="vertical-align: top; width: 33.33%;">
                         <h3>Terms and conditions</h3>
-                        <p>{{ \App\Models\Setting::where('key', 'Quotation_terms_and_condiation')->value('value') ?? 'N/A' }}</p>
+                        <p style="white-space: pre-wrap;">{{ \App\Models\Setting::where('key', 'Quotation_terms_and_condiation')->value('value') ?? 'N/A' }}</p>
                     </td>
                     <td class="detail-section" style="vertical-align: top; width: 33.34%;">
                         <h3 style="text-align: right;">For {{ $company?->name ?? 'Company Name' }}</h3>

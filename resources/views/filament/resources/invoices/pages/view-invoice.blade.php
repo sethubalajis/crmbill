@@ -460,7 +460,7 @@
                             $taxableValue = $item->quantity * $item->item_rate;
                             $gstRate = $item->gst->percentage ?? 0;
                             
-                            if ($invoice->intrastate) {
+                            if (!$invoice->intrastate) {
                                 $cgstRate = $gstRate / 2;
                                 $sgstRate = $gstRate / 2;
                             } else {

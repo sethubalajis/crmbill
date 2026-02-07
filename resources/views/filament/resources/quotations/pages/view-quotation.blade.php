@@ -369,7 +369,6 @@
                         <h3>Bill To</h3>
                         <p><strong>{{ $quotation->customer->company_name ?? 'N/A' }}</strong></p>
                         <p>{{ $quotation->customer->contact_person ?? 'N/A' }}</p>
-                        <p>{{ $quotation->customer->phone1 ?? 'N/A' }}@if($quotation->customer->gst_number) | GSTIN: {{ $quotation->customer->gst_number }}@endif</p>
                         @php
                             $billingAddress = $quotation->customer?->addresses
                                 ?->firstWhere(fn ($address) => $address->address_type === 'Billing' && $address->is_default)
@@ -389,6 +388,7 @@
                         <p><strong>Quotation No:</strong> {{ $quotation->quotationno }}</p>
                         <p><strong>Date:</strong> {{ $quotation->date->format('M d, Y') }}</p>
                         <p><strong>Type:</strong> {{ $quotation->intrastate ? 'Intra State' : 'Inter State' }}</p>
+                        <p><strong>Phone:</strong> {{ $quotation->customer->phone1 ?? 'N/A' }} | <strong>GSTIN:</strong> {{ $quotation->customer->gst_number ?? 'N/A' }}</p>
                     </td>
                 </tr>
             </table>

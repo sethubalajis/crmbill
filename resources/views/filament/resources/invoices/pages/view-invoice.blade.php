@@ -349,9 +349,18 @@
                         <h3>Bill To</h3>
                         <p><strong>{{ $invoice->customer->company_name ?? 'N/A' }}</strong></p>
                         <p>{{ $invoice->customer->contact_person ?? 'N/A' }}</p>
-                        <p>{{ $invoice->customer->phone1 ?? 'N/A' }}</p>
-                        @if($invoice->customer->email)
-                            <p>{{ $invoice->customer->email }}</p>
+                        @php
+                            $billingAddress = $invoice->customer?->addresses
+                                ?->firstWhere(fn ($address) => $address->address_type === 'Billing' && $address->is_default)
+                                ?? $invoice->customer?->addresses?->firstWhere('address_type', 'Billing');
+                        @endphp
+                        @if($billingAddress)
+                            <p>{{ $billingAddress->street_address }}</p>
+                            <p>
+                                @if($billingAddress->city){{ $billingAddress->city }}@endif
+                                @if($billingAddress->state){{ $billingAddress->city ? ', ' : '' }}{{ $billingAddress->state }}@endif
+                                @if($billingAddress->pincode){{ ($billingAddress->city || $billingAddress->state) ? ' - ' : '' }}{{ $billingAddress->pincode }}@endif
+                            </p>
                         @endif
                     </td>
                     <td class="detail-section">
@@ -359,6 +368,7 @@
                         <p><strong>Invoice No:</strong> {{ $invoice->invoiceno }}</p>
                         <p><strong>Date:</strong> {{ $invoice->invoicedate->format('M d, Y') }}</p>
                         <p><strong>Type:</strong> {{ $invoice->intrastate ? 'Intra State' : 'Inter State' }}</p>
+                        <p><strong>Phone:</strong> {{ $invoice->customer->phone1 ?? 'N/A' }}@if($invoice->customer->gst_number) | <strong>GSTIN:</strong> {{ $invoice->customer->gst_number }}@endif</p>
                     </td>
                 </tr>
             </table>

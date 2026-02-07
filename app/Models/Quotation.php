@@ -23,8 +23,10 @@ class Quotation extends Model
                 $prefix = Setting::where('key', 'quotationno_prefix')->value('value') ?? '';
                 $financialYear = Setting::where('key', 'current_financial_year')->value('value');
                 $suffix = Setting::where('key', 'quotationno_sufix')->value('value') ?? '';
+				$digits = Setting::where('key', 'quotationno_digits')->value('value') ?? '';//quotationon_digits
+                $quotation->quotationno = $prefix . $financialYear . $suffix . str_pad($nextId,intval($digits), '0', STR_PAD_LEFT);
 
-                $quotation->quotationno = $prefix . $financialYear . $suffix . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+              //  $quotation->quotationno = $prefix . $financialYear . $suffix . str_pad($nextId, 6, '0', STR_PAD_LEFT);
             }
         });
     }

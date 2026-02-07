@@ -22,7 +22,9 @@ class Invoice extends Model
                 $financialYear = Setting::where('key', 'current_financial_year')->value('value');
                 $suffix = Setting::where('key', 'invoice_sufix')->value('value') ?? '';
                 
-                $invoice->invoiceno = $prefix . $financialYear . $suffix . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+				$digits = Setting::where('key', 'invoiceno_digits')->value('value') ?? '';//invoiceno_digits
+          	
+                $invoice->invoiceno = $prefix . $financialYear . $suffix . str_pad($nextId, intval($digits), '0', STR_PAD_LEFT);
             }
         });
     }

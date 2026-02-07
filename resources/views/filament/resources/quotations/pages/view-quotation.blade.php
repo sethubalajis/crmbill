@@ -369,9 +369,19 @@
                         <h3>Bill To</h3>
                         <p><strong>{{ $quotation->customer->company_name ?? 'N/A' }}</strong></p>
                         <p>{{ $quotation->customer->contact_person ?? 'N/A' }}</p>
-                        <p>{{ $quotation->customer->phone1 ?? 'N/A' }}</p>
-                        @if($quotation->customer->email)
-                            <p>{{ $quotation->customer->email }}</p>
+                        <p>{{ $quotation->customer->phone1 ?? 'N/A' }}@if($quotation->customer->gst_number) | GSTIN: {{ $quotation->customer->gst_number }}@endif</p>
+                        @php
+                            $billingAddress = $quotation->customer?->addresses
+                                ?->firstWhere(fn ($address) => $address->address_type === 'Billing' && $address->is_default)
+                                ?? $quotation->customer?->addresses?->firstWhere('address_type', 'Billing');
+                        @endphp
+                        @if($billingAddress)
+                            <p>{{ $billingAddress->street_address }}</p>
+                            <p>
+                                @if($billingAddress->city){{ $billingAddress->city }}@endif
+                                @if($billingAddress->state){{ $billingAddress->city ? ', ' : '' }}{{ $billingAddress->state }}@endif
+                                @if($billingAddress->pincode){{ ($billingAddress->city || $billingAddress->state) ? ' - ' : '' }}{{ $billingAddress->pincode }}@endif
+                            </p>
                         @endif
                     </td>
                     <td class="detail-section">

@@ -33,7 +33,10 @@ Route::get('/quotations/{quotation}/download-pdf', function (Quotation $quotatio
     ])->render();
     
     $pdf = \PDF::loadHTML($html);
-    return $pdf->download('Quotation_' . $quotation->quotationno . '.pdf');
+    //return $pdf->download('Quotation_' . $quotation->quotationno . '.pdf');
+	
+	return $pdf->download('Quotation_' . preg_replace('/[^A-Za-z0-9 ]/', '',$quotation->quotationno) . '.pdf');
+	
 })->name('quotations.download-pdf');
 
 Route::get('/invoices/{invoice}/view', function (Invoice $invoice) {
@@ -60,7 +63,9 @@ Route::get('/invoices/{invoice}/download-pdf', function (Invoice $invoice) {
     ])->render();
     
     $pdf = \PDF::loadHTML($html);
-    return $pdf->download('Invoice_' . $invoice->invoiceno . '.pdf');
+	//return $pdf->download('Quotation_' . preg_replace('/[^A-Za-z0-9 ]/', '',$quotation->quotationno) . '.pdf');	
+	
+    return $pdf->download('Invoice_' .  preg_replace('/[^A-Za-z0-9 ]/', '',$invoice->invoiceno) . '.pdf');
 })->name('invoices.download-pdf');
 
 
